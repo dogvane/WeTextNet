@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WeTextNet/WeTextNet.csproj" />
+  <Project Path="tests/WeTextNet.Tests/WeTextNet.Tests.csproj" />
+</Solution>

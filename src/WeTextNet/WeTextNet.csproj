@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>WeTextNet</AssemblyName>
+    <RootNamespace>Dogvane.WeTextNet</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <!-- NuGet package metadata -->
+  <PropertyGroup>
+    <PackageId>Dogvane.WeTextNet</PackageId>
+    <Version>0.1.8</Version>
+    <Authors>dogvane</Authors>
+    <Description>Pure C# TN/ITN text normalization runtime for WeTextProcessing: loads the pre-built OpenFst graphs from the bundled wetext 0.1.8 FST bundle (zh/en/ja), no native dependencies.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/dogvane/WeTextNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/dogvane/WeTextNet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>tn;itn;text-normalization;tts;fst;openfst;chinese;english;japanese;wetextprocessing</PackageTags>
+    <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)..\..\artifacts</PackageOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="WeTextNet.Tests" Condition="'$(Configuration)' == 'Debug'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!--
+      The FST bundle ships as a content file: NuGet copies assets/wetext.zip into
+      the consumer's output directory (copyToOutput), where Normalizer's default
+      loader finds it next to the assembly. No embedded resources, AOT-safe.
+    -->
+    <Content Include="assets\wetext.zip"
+             CopyToOutputDirectory="PreserveNewest"
+             Pack="true"
+             PackagePath="contentFiles/any/any/assets/wetext.zip"
+             PackageCopyToOutput="true" />
+    <!-- Simplified readme for nuget.org; the detailed README.md at the repo root stays GitHub-only. -->
+    <None Include="README.nuget.md" Pack="true" PackagePath="README.nuget.md" />
+  </ItemGroup>
+
+</Project>
